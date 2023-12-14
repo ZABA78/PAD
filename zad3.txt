@@ -1,1 +1,27 @@
+def nwd(x, y):
+    if x < y:
+        return nwd(y, x)
+    if y == 0:
+        return x
+    return nwd(y, x % y)
 
+rozmiar = 200
+liczby = []
+
+with open("liczby.txt", "r") as in_file:
+    for i in range(rozmiar):
+        a = int(in_file.readline().strip())
+        liczby.append(a)
+
+najwieksza = 0
+for i in range(rozmiar):
+    ok = True
+    for j in range(rozmiar):
+        if i != j and nwd(liczby[i], liczby[j]) > 1:
+            ok = False
+            break
+    if ok and liczby[i] > najwieksza:
+        najwieksza = liczby[i]
+
+
+print(f"Najwieksza wzglednie pierwsza: {najwieksza}")
