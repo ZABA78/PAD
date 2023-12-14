@@ -1,0 +1,17 @@
+with open("liczby.txt", "r") as in_file:
+    with open("wyniki.txt", "a") as out_file:
+        for _ in range(200):
+            a = int(in_file.readline().strip())
+            ile_dzielnikow = 0
+
+            for i in range(1, a + 1):
+                if a % i == 0:
+                    ile_dzielnikow += 1
+
+            if ile_dzielnikow == 18:
+                print(a)
+                out_file.write(f"{a}\n")
+                for i in range(1, a + 1):
+                    if a % i == 0:
+                        out_file.write(f"{i} ")
+                out_file.write("\n")
