@@ -1,0 +1,84 @@
+//zad1
+with open('ciagi.txt', 'r') as plik:
+    maksymalna_roznica = 0
+    for linia in plik:
+        ciag = [int(liczba) for liczba in linia.strip().split()]
+        if len(ciag) > 1:
+            roznica_poczatkowa = ciag[1] - ciag[0]
+            czy_ciag_arytmetyczny = True
+            for i in range(1, len(ciag)):
+                if ciag[i] - ciag[i - 1] != roznica_poczatkowa:
+                    czy_ciag_arytmetyczny = False
+                    break
+            if czy_ciag_arytmetyczny and maksymalna_roznica < roznica_poczatkowa:
+                maksymalna_roznica = roznica_poczatkowa
+
+print(f"Największa różnica wynosi: {maksymalna_roznica}")
+
+//zad 1 inaczej
+
+def pobierz_liczby(tekst):
+    return [int(liczba) for liczba in tekst.split()]
+
+def czy_naturalna(n):
+    pierwiastek_n = abs(n) ** (1/3)
+    return int(pierwiastek_n) == pierwiastek_n
+
+def maks_szescian(liczby):
+    for liczba in reversed(liczby):
+        if czy_naturalna(liczba):
+            return liczba
+    return 0
+
+with open("ciagi.txt", "r") as plik_wejsciowy, open("wynik2.txt", "w") as plik_wyjsciowy:
+    for linia in plik_wejsciowy:
+        liczby = pobierz_liczby(linia)
+        wynik = maks_szescian(liczby)
+        if wynik == 0:
+            plik_wyjsciowy.write("Brak szescianu liczby naturalnej w tym ciagu.\n")
+        else:
+            plik_wyjsciowy.write(f"Najwiekszy szescian liczby naturalnej w ciagu: {wynik}.\n")
+
+//zad 2
+
+def pobierz_liczby(tekst):
+    liczby = []
+    liczba = ''
+    indeks = 0
+    while True:
+        if indeks == len(tekst):
+            liczby.append(int(liczba))
+            break        
+        if tekst[indeks] != ' ':
+            liczba += tekst[indeks]
+        else:
+            liczby.append(int(liczba))
+            liczba = ''
+        indeks += 1
+    return liczby
+
+def czy_naturalna(n):
+    pierwiastek_n = abs(n) ** (1/3)
+    return int(pierwiastek_n) == pierwiastek_n
+
+def maks_szescian(liczby):
+    for i in range(len(liczby)-1, 0, -1):
+        if czy_naturalna(liczby[i]):
+            return liczby[i]
+    return 0
+
+plik_wejsciowy = open("ciagi.txt", "r")
+plik_wyjsciowy = open("wynik22.txt", "w")
+
+for linia in plik_wejsciowy:
+    string = plik_wejsciowy.readline()
+    liczby = pobierz_liczby(string)
+    wynik = maks_szescian(liczby)
+    
+    if wynik == 0:
+        plik_wyjsciowy.write("Brak szescianu liczby naturalnej w tym ciagu.\n")
+    else:
+        plik_wyjsciowy.write(f"Największy szescian liczby naturalnej w ciągu: {wynik}.\n")   
+
+plik_wejsciowy.close()
+plik_wyjsciowy.close()
