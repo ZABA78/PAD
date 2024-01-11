@@ -1,0 +1,13 @@
+with open('tekst.txt', 'r') as plik:
+    tekst = plik.read()
+
+slowa = tekst.split()
+liczba_slow = 0
+
+for slowo in slowa:
+    for i in range(len(slowo)-1):
+        if slowo[i] == slowo[i+1]:
+            liczba_slow += 1
+            break
+
+print(f"Liczba słów z dwiema kolejnymi takimi samymi literami: {liczba_slow}")
